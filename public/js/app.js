@@ -12042,7 +12042,7 @@ module.exports = Vue;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(48);
+module.exports = __webpack_require__(49);
 
 
 /***/ }),
@@ -12074,7 +12074,7 @@ var MyHeader = __webpack_require__(40);
 var MyFooter = __webpack_require__(42);
 
 var Home = __webpack_require__(44);
-var About = __webpack_require__(46);
+var About = __webpack_require__(47);
 
 //let AddModal = require('./components/AddModal.vue')
 
@@ -46054,41 +46054,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "nav",
-    {
-      staticClass: "navbar",
-      attrs: { role: "navigation", "aria-label": "main navigation" }
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "navbar-brand" },
-        [
-          _c("a", { staticClass: "navbar-item", attrs: { href: "" } }, [
-            _vm._v("\n            Rahat!\n        ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "navbar-menu is-active" }),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { staticClass: "navbar-item", attrs: { to: "/home" } },
-            [_vm._v("Home")]
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { staticClass: "navbar-item", attrs: { to: "/about" } },
-            [_vm._v("About")]
-          ),
-          _vm._v(" "),
-          _vm._m(0)
-        ],
-        1
-      )
-    ]
-  )
+  return _c("div", { staticClass: "wrapper" }, [
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+      [
+        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+          _vm._v("Rahat!")
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarColor02" }
+          },
+          [
+            _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item active" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "navbar-item", attrs: { to: "/home" } },
+                    [_vm._v("Home")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "navbar-item", attrs: { to: "/about" } },
+                    [_vm._v("About")]
+                  )
+                ],
+                1
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -46096,22 +46111,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
+      "button",
       {
-        staticClass: "navbar-burger",
+        staticClass: "navbar-toggler",
         attrs: {
-          role: "button",
-          "aria-label": "menu",
-          "aria-expanded": "false"
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarColor02",
+          "aria-controls": "navbarColor02",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
         }
       },
-      [
-        _c("span", { attrs: { "aria-hidden": "true" } }),
-        _vm._v(" "),
-        _c("span", { attrs: { "aria-hidden": "true" } }),
-        _vm._v(" "),
-        _c("span", { attrs: { "aria-hidden": "true" } })
-      ]
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
   }
 ]
@@ -46232,9 +46244,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(63)
+var __vue_script__ = __webpack_require__(45)
 /* template */
-var __vue_template__ = __webpack_require__(45)
+var __vue_template__ = __webpack_require__(46)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -46274,6 +46286,146 @@ module.exports = Component.exports
 
 /***/ }),
 /* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var AddModal = __webpack_require__(60);
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        AddModal: AddModal
+    },
+    data: function data() {
+        return {
+            AddActiveClass: '',
+            mshow: '',
+            lists: {},
+            errors: {}
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.post("/getData").then(function (response) {
+            return _this.lists = response.data;
+        }).catch(function (error) {
+            return _this.errors = error.response.data.errors;
+        });
+    },
+
+    methods: {
+        openAddModal: function openAddModal() {
+            this.AddActiveClass = "is-active";
+            this.mshow = "show";
+            //this.$emit('bitton-clicked');
+        },
+        close: function close() {
+            this.AddActiveClass = "";
+            this.mshow = "";
+        }
+    }
+});
+
+/***/ }),
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -46283,62 +46435,79 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("nav", { staticClass: "panel column is-offset-2 is-8" }, [
-        _c("p", { staticClass: "panel-heading" }, [
-          _vm._v("\n            VueJs Phonebook App\n            "),
-          _c(
-            "button",
-            {
-              staticClass: "button is-primary is-outlined",
-              on: { click: _vm.openAddModal }
-            },
-            [_vm._v("\n                Add New\n            ")]
-          )
-        ]),
+      _c("div", { staticClass: "list-group" }, [
+        _c(
+          "a",
+          {
+            staticClass: "list-group-item list-group-item-action active",
+            attrs: { href: "#" }
+          },
+          [
+            _vm._v("\n                VueJs Phonebook App\n                "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-info pull-right",
+                on: { click: _vm.openAddModal }
+              },
+              [_vm._v("\n                    Add New\n                ")]
+            )
+          ]
+        ),
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
-        _c("a", { staticClass: "panel-block is-active" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("span", { staticClass: "panel-icon column is-1" }, [
-            _c("i", {
-              staticClass: "has-text-danger fa fa-trash",
-              attrs: { "aria-hidden": "true" },
-              on: {
-                click: function($event) {
-                  _vm.del(_vm.key, _vm.item.id)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "panel-icon column is-1" }, [
-            _c("i", {
-              staticClass: "has-text-info fa fa-edit",
-              attrs: { "aria-hidden": "true" },
-              on: {
-                click: function($event) {
-                  _vm.openUpdate(_vm.key)
-                }
-              }
-            })
-          ]),
-          _c("span", { staticClass: "panel-icon column is-1" }, [
-            _c("i", {
-              staticClass: "has-text-primary fa fa-eye",
-              attrs: { "aria-hidden": "true" },
-              on: {
-                click: function($event) {
-                  _vm.openShow(_vm.key)
-                }
-              }
-            })
-          ])
-        ])
+        _c(
+          "a",
+          { staticClass: "list-group-item list-group-item-action is-active" },
+          [
+            _c("div", { staticClass: "row" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-1 col-sm-2" }, [
+                _c("i", {
+                  staticClass: "text-warning fa fa-trash",
+                  attrs: { "aria-hidden": "true" },
+                  on: {
+                    click: function($event) {
+                      _vm.del(_vm.key, _vm.item.id)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-1 col-sm-2" }, [
+                _c("i", {
+                  staticClass: "text-success fa fa-edit",
+                  attrs: { "aria-hidden": "true" },
+                  on: {
+                    click: function($event) {
+                      _vm.openUpdate(_vm.key)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-1 col-sm-2" }, [
+                _c("i", {
+                  staticClass: "text-info fa fa-eye",
+                  attrs: { "aria-hidden": "true" },
+                  on: {
+                    click: function($event) {
+                      _vm.openShow(_vm.key)
+                    }
+                  }
+                })
+              ])
+            ])
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c("Add-Modal", { attrs: { openModal: _vm.AddActiveClass } })
+      _c("Add-Modal", {
+        attrs: { openModal: _vm.AddActiveClass, mshow: _vm.mshow },
+        on: { closeRequest: _vm.close }
+      })
     ],
     1
   )
@@ -46348,29 +46517,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-block" }, [
-      _c("p", { staticClass: "control has-icons-left" }, [
-        _c("input", {
-          staticClass: "input is-small",
-          attrs: { type: "text", placeholder: "search" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "icon is-small is-left" }, [
+    return _c(
+      "a",
+      {
+        staticClass: "list-group-item list-group-item-action",
+        attrs: { href: "#" }
+      },
+      [
+        _c("div", { staticClass: "inner-addon left-addon" }, [
           _c("i", {
-            staticClass: "fa fa-search",
+            staticClass: "fa fa-search glyphicon",
             attrs: { "aria-hidden": "true" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Search" }
           })
         ])
-      ])
-    ])
+      ]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "panel-icon column is-9" }, [
-      _c("i", { staticClass: "fa fa-book", attrs: { "aria-hidden": "true" } }, [
-        _vm._v("Bulma")
+    return _c("div", { staticClass: "col-md-9 col-sm-6" }, [
+      _c("i", { staticClass: "text-primary fa fa-id-badge" }, [
+        _c("span", { staticClass: "text-danger" }, [_vm._v(" Bulma")])
       ])
     ])
   }
@@ -46385,7 +46559,7 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -46393,7 +46567,7 @@ var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(47)
+var __vue_template__ = __webpack_require__(48)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -46432,7 +46606,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -46452,13 +46626,12 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 49 */,
 /* 50 */,
 /* 51 */,
 /* 52 */,
@@ -46469,14 +46642,13 @@ if (false) {
 /* 57 */,
 /* 58 */,
 /* 59 */,
-/* 60 */,
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(64)
+var __vue_script__ = __webpack_require__(61)
 /* template */
 var __vue_template__ = __webpack_require__(62)
 /* template functional */
@@ -46517,6 +46689,114 @@ module.exports = Component.exports
 
 
 /***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["openModal", "mshow"],
+    data: function data() {
+        return {
+            list: {
+                name: "",
+                phone: "",
+                email: ""
+            },
+            errors: {}
+        };
+    },
+
+    methods: {
+        close: function close() {
+            this.$emit("closeRequest");
+        },
+        save: function save() {
+            var _this = this;
+
+            axios.post("/phonebook", this.$data.list).then(function (response) {
+                return _this.close();
+            }).catch(function (error) {
+                return _this.errors = error.response.data.errors;
+            });
+        }
+    }
+});
+
+/***/ }),
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46524,39 +46804,226 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "modal", class: _vm.openModal }, [
-    _c("div", { staticClass: "modal-background" }),
-    _vm._v(" "),
-    _vm._m(0)
+  return _c("div", { staticClass: "modalWapper" }, [
+    _c(
+      "div",
+      { staticClass: "modal fade", class: [_vm.openModal, _vm.mshow] },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "exampleModalCenterTitle" }
+                  },
+                  [_vm._v("Modal title")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Close"
+                    }
+                  },
+                  [
+                    _c(
+                      "span",
+                      {
+                        attrs: { "aria-hidden": "true" },
+                        on: { click: _vm.close }
+                      },
+                      [_vm._v("×")]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.name,
+                        expression: "list.name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: { "border-warning": _vm.errors.name },
+                    attrs: {
+                      type: "text",
+                      name: "name",
+                      "aria-describedby": "emailHelp",
+                      placeholder: "Name"
+                    },
+                    domProps: { value: _vm.list.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "name", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      staticClass: "form-text text-muted",
+                      attrs: { id: "emailHelp" }
+                    },
+                    [
+                      _vm._v(
+                        "We'll never share your email with\n                            anyone else."
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.name
+                    ? _c("small", { staticClass: "text-warning" }, [
+                        _vm._v(_vm._s(_vm.errors.name[0]))
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "phone" } }, [
+                    _vm._v("Phone Number")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.phone,
+                        expression: "list.phone"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: { "border-warning": _vm.errors.phone },
+                    attrs: {
+                      type: "text",
+                      name: "phone",
+                      placeholder: "Phone Number"
+                    },
+                    domProps: { value: _vm.list.phone },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "phone", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.phone
+                    ? _c("small", { staticClass: "text-warning" }, [
+                        _vm._v(_vm._s(_vm.errors.phone[0]))
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "email" } }, [
+                    _vm._v("Email address")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.email,
+                        expression: "list.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: { "border-warning": _vm.errors.email },
+                    attrs: {
+                      type: "email",
+                      name: "email",
+                      "aria-describedby": "emailHelp",
+                      placeholder: "Enter email"
+                    },
+                    domProps: { value: _vm.list.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      staticClass: "form-text text-muted",
+                      attrs: { id: "emailHelp" }
+                    },
+                    [
+                      _vm._v(
+                        "We'll never share your email with\n                            anyone else."
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.email
+                    ? _c("small", { staticClass: "text-warning" }, [
+                        _vm._v(_vm._s(_vm.errors.email[0]))
+                      ])
+                    : _vm._e()
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: { click: _vm.close }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.save }
+                  },
+                  [_vm._v("Save changes")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-card" }, [
-      _c("header", { staticClass: "modal-card-head" }, [
-        _c("p", { staticClass: "modal-card-title" }, [_vm._v("Modal title")]),
-        _vm._v(" "),
-        _c("button", {
-          staticClass: "delete",
-          attrs: { "aria-label": "close" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("section", { staticClass: "modal-card-body" }),
-      _vm._v(" "),
-      _c("footer", { staticClass: "modal-card-foot" }, [
-        _c("button", { staticClass: "button is-success" }, [
-          _vm._v("Save changes")
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "button" }, [_vm._v("Cancel")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -46565,98 +47032,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-d9688412", module.exports)
   }
 }
-
-/***/ }),
-/* 63 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var AddModal = __webpack_require__(61);
-/* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        AddModal: AddModal
-    },
-    data: function data() {
-        return {
-            AddActiveClass: ''
-        };
-    },
-
-    methods: {
-        openAddModal: function openAddModal() {
-            this.AddActiveClass = 'is-active';
-        }
-    }
-});
-
-/***/ }),
-/* 64 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['openModal']
-});
 
 /***/ })
 /******/ ]);
