@@ -78,9 +78,14 @@ public function store(PhonebookRequest $request)
      * @param  \App\Phonebook  $phonebook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Phonebook $phonebook)
+    public function update(PhonebookRequest $request)
     {
-        //
+//return $request->all();
+    $PB = Phonebook::find($request->id);
+    $PB->name = $request->name;
+    $PB->email = $request->email;
+    $PB->phone = $request->phone;
+    $PB->save();
     }
 
     /**

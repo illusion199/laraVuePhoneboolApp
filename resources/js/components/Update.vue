@@ -1,17 +1,11 @@
 <template>
     <div class="modalWapper">
-        <!-- Button trigger modal -->
-        <!--   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Launch demo modal
-        </button> -->
-
-        <!-- Modal -->
 
         <div class="modal fade" :class="[openModal, mshow]">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <h5 class="modal-title">Edit {{list.name}}'s <i>Infos</i> </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" @click="close">&times;</span>
                         </button>
@@ -46,7 +40,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="close">Close</button>
-                        <button type="button" class="btn btn-primary" @click="save">Save</button>
+                        <button type="button" class="btn btn-primary" @click="update">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -60,11 +54,7 @@
         props: ["openModal", "mshow"],
         data() {
             return {
-                list: {
-                    name: "",
-                    phone: "",
-                    email: ""
-                },
+                list: {},
                 errors: {}
             };
         },
@@ -72,12 +62,12 @@
             close() {
                 this.$emit("closeRequest");
             },
-            save() {
+            update() {
                 axios
-                    .post("/phonebook", this.$data.list)
+                    .patch(`/phonebook/${this.list.id}`, this.$data.list)
                     .then((response) => {
                         this.close()
-                        this.$parent.lists.push(this.$data.list)
+                        //this.$parent.lists.push(this.$data.list)
                     })
                     .catch((error) => this.errors = error.response.data.errors)
             }
