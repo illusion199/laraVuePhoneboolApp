@@ -6,6 +6,9 @@
                 <button class="btn btn-outline-info pull-right" @click="openAddModal">
                     Add New
                 </button>
+                <span class="is-pulled-right" v-if="loading">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                </span>
             </a>
 
 
@@ -20,17 +23,17 @@
 </ul> -->
             <a class="list-group-item list-group-item-action is-active" v-for="(item, key) in lists">
                 <div class="row">
-                    <div class="col-md-9 col-sm-6">
+                    <div class="col col-md-9 col-sm-6">
 
                         <i class="text-primary fa fa-id-badge"><span class="text-danger"> {{item.name}}</span></i>
                     </div>
-                    <div class="col-md-1 col-sm-2">
+                    <div class="col col-md-1 col-sm-2">
                         <i class="text-warning fa fa-trash" aria-hidden="true" @click="del(key,item.id)"></i>
                     </div>
-                    <div class="col-md-1 col-sm-2">
+                    <div class="col col-md-1 col-sm-2">
                         <i class="text-success fa fa-edit" aria-hidden="true" @click="openUpdate(key)"></i>
                     </div>
-                    <div class="col-md-1 col-sm-2">
+                    <div class="col col-md-1 col-sm-2">
                         <i class="text-info fa fa-eye" aria-hidden="true" @click="openShow(key)"></i>
                     </div>
 
@@ -47,9 +50,9 @@
     </div>
 </template>
 <script>
-    let AddModal = require("./AddModal.vue")
-    let Show = require("./Show.vue")
-    let Update = require("./Update.vue")
+    let AddModal = require("./AddModal.vue");
+    let Show = require("./Show.vue");
+    let Update = require("./Update.vue");
     export default {
         components: {
             AddModal,
@@ -58,10 +61,11 @@
         },
         data() {
             return {
-                AddActiveClass: '',
-                ShowActiveClass: '',
-                UpdateActiveClass: '',
-                mshow: '',
+                AddActiveClass: "",
+                ShowActiveClass: "",
+                UpdateActiveClass: "",
+                mshow: "",
+                loading: false,
                 lists: {},
                 errors: {}
             };
@@ -81,7 +85,7 @@
             openShow(key) {
                 //console.log(key);
                 //console.log(this.$children[1]);
-                this.$children[1].list = this.lists[key]
+                this.$children[1].list = this.lists[key];
                 this.ShowActiveClass = "is-active";
                 this.mshow = "show";
                 //this.$emit('bitton-clicked');
@@ -89,15 +93,27 @@
             openUpdate(key) {
                 console.log(key);
                 //console.log(this.$children[2]);
-                this.$children[2].list = this.lists[key]
+                this.$children[2].list = this.lists[key];
                 this.UpdateActiveClass = "is-active";
                 this.mshow = "show";
                 //this.$emit('bitton-clicked');
             },
+            del(key, id) {
+                if (confirm("Are you sure ?")) {
+                    this.loading = !this.loading;
+                    axios
+                        .delete(`/phonebook/${id}`)
+                        .then(response => {
+                            this.lists.splice(key, 1);
+                            this.loading = !this.loading;
+                        })
+                        .catch(error => (this.errors = error.response.data.errors));
+                }
+                console.log(`${key} ${id}`);
+            },
             close() {
-                this.AddActiveClass = this.ShowActiveClass = this.UpdateActiveClass = '';
+                this.AddActiveClass = this.ShowActiveClass = this.UpdateActiveClass = "";
                 this.mshow = "";
-
             }
         }
     };

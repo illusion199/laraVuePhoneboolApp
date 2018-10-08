@@ -46059,11 +46059,9 @@ var render = function() {
       "nav",
       { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
       [
-        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-          _vm._v("Rahat!")
-        ]),
-        _vm._v(" "),
         _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "div",
@@ -46106,6 +46104,17 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+      _c("img", {
+        staticStyle: { width: "40px", height: "40px", "border-radius": "10px" },
+        attrs: { src: "/img/logo.jpg", alt: "Logo" }
+      })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -46338,6 +46347,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 var AddModal = __webpack_require__(46);
 var Show = __webpack_require__(49);
@@ -46350,10 +46362,11 @@ var Update = __webpack_require__(52);
     },
     data: function data() {
         return {
-            AddActiveClass: '',
-            ShowActiveClass: '',
-            UpdateActiveClass: '',
-            mshow: '',
+            AddActiveClass: "",
+            ShowActiveClass: "",
+            UpdateActiveClass: "",
+            mshow: "",
+            loading: false,
             lists: {},
             errors: {}
         };
@@ -46390,8 +46403,22 @@ var Update = __webpack_require__(52);
             this.mshow = "show";
             //this.$emit('bitton-clicked');
         },
+        del: function del(key, id) {
+            var _this2 = this;
+
+            if (confirm("Are you sure ?")) {
+                this.loading = !this.loading;
+                axios.delete("/phonebook/" + id).then(function (response) {
+                    _this2.lists.splice(key, 1);
+                    _this2.loading = !_this2.loading;
+                }).catch(function (error) {
+                    return _this2.errors = error.response.data.errors;
+                });
+            }
+            console.log(key + " " + id);
+        },
         close: function close() {
-            this.AddActiveClass = this.ShowActiveClass = this.UpdateActiveClass = '';
+            this.AddActiveClass = this.ShowActiveClass = this.UpdateActiveClass = "";
             this.mshow = "";
         }
     }
@@ -46530,7 +46557,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.post("/phonebook", this.$data.list).then(function (response) {
                 _this.close();
-                _this.$parent.lists.push(_this.$data.list);
+                _this.$parent.lists.push(response.data);
+                _this.$parent.lists.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1;
+                    } else if (a.name < b.name) {
+                        return -1;
+                    }
+                });
+                _this.list = "";
             }).catch(function (error) {
                 return _this.errors = error.response.data.errors;
             });
@@ -47419,7 +47454,15 @@ var render = function() {
                   on: { click: _vm.openAddModal }
                 },
                 [_vm._v("\n                    Add New\n                ")]
-              )
+              ),
+              _vm._v(" "),
+              _vm.loading
+                ? _c("span", { staticClass: "is-pulled-right" }, [
+                    _c("i", {
+                      staticClass: "fa fa-refresh fa-spin fa-2x fa-fw"
+                    })
+                  ])
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
@@ -47433,7 +47476,7 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-9 col-sm-6" }, [
+                  _c("div", { staticClass: "col col-md-9 col-sm-6" }, [
                     _c("i", { staticClass: "text-primary fa fa-id-badge" }, [
                       _c("span", { staticClass: "text-danger" }, [
                         _vm._v(" " + _vm._s(item.name))
@@ -47441,7 +47484,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-1 col-sm-2" }, [
+                  _c("div", { staticClass: "col col-md-1 col-sm-2" }, [
                     _c("i", {
                       staticClass: "text-warning fa fa-trash",
                       attrs: { "aria-hidden": "true" },
@@ -47453,7 +47496,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-1 col-sm-2" }, [
+                  _c("div", { staticClass: "col col-md-1 col-sm-2" }, [
                     _c("i", {
                       staticClass: "text-success fa fa-edit",
                       attrs: { "aria-hidden": "true" },
@@ -47465,7 +47508,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-1 col-sm-2" }, [
+                  _c("div", { staticClass: "col col-md-1 col-sm-2" }, [
                     _c("i", {
                       staticClass: "text-info fa fa-eye",
                       attrs: { "aria-hidden": "true" },

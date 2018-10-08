@@ -21,7 +21,7 @@ return view('phonebook');
     }
 public function getData()
 {
-return Phonebook::orderBy('name', 'DESC')->get();
+return Phonebook::orderBy('name', 'ASC')->get();
 }
     /**
      * Show the form for creating a new resource.
@@ -47,6 +47,7 @@ public function store(PhonebookRequest $request)
         $PB->email = $request->email;
         $PB->phone = $request->phone;
         $PB->save();
+return $PB;
     }
 
     /**
@@ -86,6 +87,7 @@ public function store(PhonebookRequest $request)
     $PB->email = $request->email;
     $PB->phone = $request->phone;
     $PB->save();
+    
     }
 
     /**
@@ -96,6 +98,6 @@ public function store(PhonebookRequest $request)
      */
     public function destroy(Phonebook $phonebook)
     {
-        //
+        Phonebook::where('id',$phonebook->id)->delete();
     }
 }
